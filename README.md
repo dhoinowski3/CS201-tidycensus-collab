@@ -25,4 +25,4 @@ For collaboration:
 
 Owner: Daniel Hoinowski
 
-Collaborator: 
+Collaborator: Brady Paulson
