@@ -41,7 +41,7 @@ API stands for Application Programming Interface. Here is the idea:
 [Request your own](https://api.census.gov/data/key_signup.html) or use Amber's (below).
 
 ```{r Define API Key, message=FALSE}
-census_api_key("")
+census_api_key("920bc1a826589b34689b1448294f524495d50aa4")
 ```
 
 ## Import Variables
@@ -69,7 +69,7 @@ Let's investigate family poverty on Oahu at the census tract level.
 ```{r Import Data}
 oahu_poverty <- get_acs(
   geography = "tract",
-  variables = c(percent_poverty = "DP03_0119P"),
+  variables = c(percent_poverty = "DP02_0119P"),
   state = "HI",
   county = "Honolulu",
   geometry = TRUE,
@@ -108,9 +108,9 @@ Now let's look at family poverty in Honolulu County over time
 
 ```{r}
 # get the data (looking at ____)
-NAME <- get_acs(
+hispanic_pop <- get_acs(
   geography = "tract",
-  variables = c(NAME = "DP02_0158"),
+  variables = c(hispanic_percent = "DP05_0100P"),
   state = "HI",
   county = "Honolulu",
   geometry = TRUE,
@@ -119,16 +119,16 @@ NAME <- get_acs(
   dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 
 # map it
-oahu_unemployment_map <- ggplot(NAME) +
+oahu_hispanic_map <- ggplot(hispanic_pop) +
   geom_sf_interactive(
     aes(
-      fill = percent_unemploymentE,
-      tooltip = paste(NAME, ": ", percent_unemploymentE, "%"),
+      fill = hispanic_percentE,
+      tooltip = paste(NAME, ": ", hispanic_percentE, "%"),
       data_id = NAME)) +
   scale_fill_viridis_c(option = "plasma") +
   theme_void() 
 
-girafe(ggobj = oahu_unemployment_map, width = 700, height = 400)
+girafe(ggobj = oahu_hispanic_map, width = 700, height = 400)
 
 ```
 
