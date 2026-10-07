@@ -7,7 +7,7 @@ editor: visual
 toc: true
 ---
 
-## Install and Load Packages ......
+## Install and Load Packages
 
 ```{r Libraries}
 # install.packages("tidycensus")
@@ -132,6 +132,30 @@ girafe(ggobj = computer_map, width = 700, height = 400)
 
 ```
 
+```{r}
+example <- get_acs(
+  geography = "tract",
+  variables = c(computer_access = "DP02_0152"),
+  state = "NV",
+  county = "Clark",
+  geometry = TRUE,
+  output = "wide",
+  year = 2024)
+
+
+# map it
+computer_map <- ggplot(example) +
+  geom_sf_interactive(
+    aes(
+      fill = computer_accessE,
+      tooltip = paste(NAME, ": ", computer_accessE, "%"),
+      data_id = NAME)) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_void() 
+
+girafe(ggobj = computer_map, width = 700, height = 400)
+```
+
 ## Back to Exploring Poverty...
 
 ## Time Series
@@ -200,7 +224,7 @@ oahu_family_poverty_college_education <- get_acs(
 ```{r Scatter Plot, warning=FALSE, message=FALSE}
 ggplot(oahu_family_poverty_college_education, aes(x = percent_povertyE,y = percent_BAE)) +
   geom_point() +
-  geom_smooth() + # adds a regression line (LOESS)
+  geom_smooth(method = lm) + # adds a regression line (LOESS)
   stat_cor() + # prints R and p
   theme_minimal() + 
   labs(title = "Comparing Rates of Higher Education to Poverty, Honolulu County",

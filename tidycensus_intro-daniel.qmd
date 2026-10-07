@@ -275,7 +275,7 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 oahu_home_lang <- get_acs(
   geography = "tract",
-  variables = c(percent_poverty = "DP02_0112P"),
+  variables = c(percent_spoken = "DP02_0112P"),
   state = "HI",
   county = "Honolulu",
   geometry = TRUE,
@@ -290,11 +290,12 @@ oahu_home_lang <- get_acs(
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
-oahu_hispanic_map <- ggplot(hispanic_pop) +
+
+oahu_hispanic_map <- ggplot(oahu_home_lang) +
   geom_sf_interactive(
     aes(
-      fill = hispanic_percentE,
-      tooltip = paste(NAME, ": ", hispanic_percentE, "%"),
+      fill = percent_spokenE,
+      tooltip = paste(NAME, ": ", percent_spokenE, "%"),
       data_id = NAME)) +
   scale_fill_viridis_c(option = "plasma") +
   theme_void() 
