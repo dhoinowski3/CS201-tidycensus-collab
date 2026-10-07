@@ -132,7 +132,7 @@ girafe(ggobj = oahu_hispanic_map, width = 700, height = 400)
 
 ```
 
-## Back to Exploring Poverty...
+## Back to Exploring Poverty... Yeah
 
 ## Time Series
 
