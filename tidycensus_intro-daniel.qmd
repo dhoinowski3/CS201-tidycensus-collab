@@ -41,7 +41,7 @@ API stands for Application Programming Interface. Here is the idea:
 [Request your own](https://api.census.gov/data/key_signup.html) or use Amber's (below).
 
 ```{r Define API Key, message=FALSE}
-census_api_key("920bc1a826589b34689b1448294f524495d50aa4")
+#census_api_key("")
 ```
 
 ## Import Variables
@@ -130,9 +130,38 @@ oahu_hispanic_map <- ggplot(hispanic_pop) +
 
 girafe(ggobj = oahu_hispanic_map, width = 700, height = 400)
 
+
 ```
 
-## Back to Exploring Poverty... Yeah
+## Wednesday Warmup
+
+```{r}
+
+# get the data (looking at ____)
+eighteen_plus_pop <- get_acs(
+  geography = "tract",
+  variables = c(eighteen_total = "DP05_0025P"),
+  state = "WA",
+  county = "Thurston",
+  geometry = TRUE,
+  output = "wide",
+  year = 2024) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
+
+# map it
+oahu_eighteen_total_map <- ggplot(eighteen_plus_pop) +
+  geom_sf_interactive(
+    aes(
+      fill = eighteen_totalE,
+      tooltip = paste(NAME, ": ", eighteen_totalE, "%"),
+      data_id = NAME)) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_void() 
+
+girafe(ggobj = oahu_eighteen_total_map, width = 700, height = 400)
+```
+
+## Back to Exploring Poverty...
 
 ## Time Series
 
@@ -200,7 +229,7 @@ oahu_family_poverty_college_education <- get_acs(
 ```{r Scatter Plot, warning=FALSE, message=FALSE}
 ggplot(oahu_family_poverty_college_education, aes(x = percent_povertyE,y = percent_BAE)) +
   geom_point() +
-  geom_smooth() + # adds a regression line (LOESS)
+  geom_smooth(method = "lm") + # adds a regression line (LOESS)
   stat_cor() + # prints R and p
   theme_minimal() + 
   labs(title = "Comparing Rates of Higher Education to Poverty, Honolulu County",
