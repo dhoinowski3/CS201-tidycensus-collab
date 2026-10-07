@@ -273,6 +273,16 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+oahu_home_lang <- get_acs(
+  geography = "tract",
+  variables = c(percent_poverty = "DP02_0112P"),
+  state = "HI",
+  county = "Honolulu",
+  geometry = TRUE,
+  output = "wide",
+  year = 2024) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
+
 
 ```
 
@@ -280,6 +290,16 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+oahu_hispanic_map <- ggplot(hispanic_pop) +
+  geom_sf_interactive(
+    aes(
+      fill = hispanic_percentE,
+      tooltip = paste(NAME, ": ", hispanic_percentE, "%"),
+      data_id = NAME)) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_void() 
+
+girafe(ggobj = oahu_hispanic_map, width = 700, height = 400)
 
 ```
 
