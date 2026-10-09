@@ -301,7 +301,16 @@ ggplot(oahu_lang_2014_2024, aes(x = year, y = estimate, group = 1)) +
 Exploring the relationship between (insert variable here) and (insert variable here) with a scatter plot
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-
+ggplot(oahu_home_lang, aes(x = total_spokenE, y = married_couple_w_eighteenE)) +
+  geom_point() +
+  geom_smooth(method = "lm") + # adds a regression line (LOESS)
+  stat_cor() + # prints R and p
+  theme_minimal() + 
+  labs(title = "Comparing Number of Other Language Spoken at Home to Married Couple with 18 year olds",
+       subtitle = "ACS 5-year, 2024 release",
+       x = "Total Number of other-than-English speaking Households",
+       y = "Total Number of Married w/ 18 Households",
+       caption = "Shaded area represents margin of error around the estimate")
 
 ```
 
