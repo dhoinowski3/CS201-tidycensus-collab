@@ -244,7 +244,17 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
-
+oahu_home_lang <- get_acs(
+  geography = "tract",
+  variables = c(total_spoken = "DP02_0112",
+                married_couple_w_eighteen = "DP02_0003"),
+  variables = c(percent_spoken = "DP02_0112"),
+  state = "HI",
+  county = "Honolulu",
+  geometry = TRUE,
+  output = "wide",
+  year = 2024) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 ```
 
 ### Mapping
