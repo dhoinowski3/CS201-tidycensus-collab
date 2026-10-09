@@ -41,7 +41,7 @@ API stands for Application Programming Interface. Here is the idea:
 [Request your own](https://api.census.gov/data/key_signup.html) or use Amber's (below).
 
 ```{r Define API Key, message=FALSE}
-census_api_key("")
+census_api_key("a47fd4ce544ce6d61c337a1fea61aded17f24f03")
 ```
 
 ## Import Variables
@@ -280,18 +280,20 @@ options(scipen = 999)
 years <- 2014:2024 
 names(years) <- years
 
+oahu_lang_2014_2024 <- map_dfr(years, ~{
+  get_acs(
+    geography = "county",
+    variables = c(total_spoken = "DP02_0112"),
+    state = "HI",
+    county = "Honolulu",
+    year = .x,
+    survey = "acs5")}, .id = "year")
 ggplot(oahu_lang_2014_2024, aes(x = year, y = estimate, group = 1)) + 
-  geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
-              fill = "steelblue",
-              alpha = 0.4) + 
-  geom_line(color = "steelblue") + 
-  geom_point(color = "steelblue", size = 2) + 
-  theme_minimal() + 
-  labs(title = "Honolulu County Non Enlgish Speakers (ACS Rolling 5-year estimates)",
+  geom_line() + 
+  geom_point() +
+  labs(title = "Honolulu County Non English Speakers (ACS Rolling 5-year estimates)",
        x = "ACS Release Year (5-year window)",
-       y = "Amount of Non English Speakers",
-       caption = "Shaded area represents margin of error around the estimate")
-
+       y = "Count Non English Speakers")
 
 ```
 
@@ -315,4 +317,4 @@ ggplot(oahu_home_lang, aes(x = total_spokenE, y = married_couple_w_eighteenE)) +
 
 ### Describe what you found
 
-We found that the percent option for the variable we chose was not working properly, and would only show the total, which we confirmed when looking at both the total and percent options. Besides that, we noticed that there was a fairly sizable portion of Oahu that speaks a language other than English at home.
+We found that the percent option for the variable we chose was not working properly, and would only show the total, which we confirmed when looking at both the total and percent options. Besides that, we noticed that there was a fairly sizable portion of Oahu that speaks a language other than English at home. In our time series map, we see a large jump of about 20,000 non Enlgish speakers counted between 2018 and 2019. This trend continues to rise between 2019 and 2020 and then slowly levels out.
