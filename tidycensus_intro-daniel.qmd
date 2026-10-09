@@ -41,7 +41,7 @@ API stands for Application Programming Interface. Here is the idea:
 [Request your own](https://api.census.gov/data/key_signup.html) or use Amber's (below).
 
 ```{r Define API Key, message=FALSE}
-census_api_key("920bc1a826589b34689b1448294f524495d50aa4")
+# census_api_key("")
 ```
 
 ## Import Variables
@@ -294,7 +294,7 @@ oahu_lang_map <- ggplot(oahu_home_lang) +
   geom_sf_interactive(
     aes(
       fill = total_spokenE,
-      tooltip = paste(NAME, ": ", total_spokenE, "%"),
+      tooltip = paste(NAME, ": ", total_spokenE),
       data_id = NAME)) +
     scale_fill_viridis_c(option = "plasma") +
     theme_void() 
