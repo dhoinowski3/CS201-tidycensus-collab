@@ -264,7 +264,7 @@ oahu_lang_map <- ggplot(oahu_home_lang) +
   geom_sf_interactive(
     aes(
       fill = total_spokenE,
-      tooltip = paste(NAME, ": ", total_spokenE, "%"),
+      tooltip = paste(NAME, ": ", total_spokenE),
       data_id = NAME)) +
   scale_fill_viridis_c(option = "plasma") +
   theme_void() 
@@ -315,3 +315,5 @@ ggplot(oahu_home_lang, aes(x = total_spokenE, y = married_couple_w_eighteenE)) +
 ```
 
 ### Describe what you found
+
+We found that the percent option for the variable we chose was not working properly, and would only show the total, which we confirmed when looking at both the total and percent options. Besides that, we noticed that there was a fairly sizable portion of Oahu that speaks a language other than English at home.
