@@ -1,6 +1,7 @@
 ---
 title: "tidycensus Intro & GitHub Collab"
-author: "Amber Camp" 
+author: "Daniel Hoinowski
+         Brady Paulson" 
 date: "`r Sys.Date()`"
 format: html
 editor: visual
@@ -317,4 +318,4 @@ ggplot(oahu_home_lang, aes(x = total_spokenE, y = married_couple_w_eighteenE)) +
 
 ### Describe what you found
 
-We found that the percent option for the variable we chose was not working properly, and would only show the total, which we confirmed when looking at both the total and percent options. Besides that, we noticed that there was a fairly sizable portion of Oahu that speaks a language other than English at home. In our time series map, we see a large jump of about 20,000 non Enlgish speakers counted between 2018 and 2019. This trend continues to rise between 2019 and 2020 and then slowly levels out.
+We found that the percent option for the variable we chose was not working properly, and would only show the total, which we confirmed when looking at both the total and percent options. Besides that, we noticed that there was a fairly sizable portion of Oahu that speaks a language other than English at home. In our time series map, we see a large jump of about 20,000 non Enlgish speakers counted between 2018 and 2019. This trend continues to rise between 2019 and 2020 and then slowly levels out. For our scatterplot, we compared the previous variable against the total number of households with married couples and a child over the age of 18. We found that there was a positive correlation between the two variables, signaling that many households that speak a home language are also households with married couples and an 18 year old child.
