@@ -277,6 +277,7 @@ oahu_home_lang <- get_acs(
   geography = "tract",
   variables = c(total_spoken = "DP02_0112",
                 married_couple_w_eighteen = "DP02_0003"),
+  variables = c(percent_spoken = "DP02_0112"),
   state = "HI",
   county = "Honolulu",
   geometry = TRUE,
@@ -305,7 +306,22 @@ girafe(ggobj = oahu_lang_map, width = 700, height = 400)
 ### Time Series
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+options(scipen = 999)
+years <- 2014:2024 
+names(years) <- years
 
+ggplot(oahu_lang_2014_2024, aes(x = year, y = estimate, group = 1)) + 
+  geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
+              fill = "steelblue",
+              alpha = 0.4) + 
+  geom_line(color = "steelblue") + 
+  geom_point(color = "steelblue", size = 2) + 
+  theme_minimal() + 
+  labs(title = "Honolulu County Non Enlgish Speakers (ACS Rolling 5-year estimates)",
+       x = "ACS Release Year (5-year window)",
+       y = "Amount of Non English Speakers",
+       caption = "Shaded area represents margin of error around the estimate")
+  
 
 ```
 
