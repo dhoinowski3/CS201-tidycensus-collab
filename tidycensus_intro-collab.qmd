@@ -248,7 +248,6 @@ oahu_home_lang <- get_acs(
   geography = "tract",
   variables = c(total_spoken = "DP02_0112",
                 married_couple_w_eighteen = "DP02_0003"),
-  variables = c(percent_spoken = "DP02_0112"),
   state = "HI",
   county = "Honolulu",
   geometry = TRUE,
